@@ -52,7 +52,7 @@ class App extends Component {
       var result;
       if(autoBracket){
         try{
-          result =  math.eval(this.state.operation.concat(')'));
+          result =  math.format(math.eval(this.state.operation.concat(')')), {precision: 14});
         }catch(e){
           this.setState({error: "expression error"});
           setInterval(() =>{
@@ -66,7 +66,7 @@ class App extends Component {
         return;
       }
       try{
-        result = math.eval(this.state.operation);
+        result = math.format(math.eval(this.state.operation), {precision: 14});
       }catch(e){
         this.setState({error: "expression error"});
         setInterval(() =>{
@@ -78,9 +78,13 @@ class App extends Component {
       this.setState({operation: result.toString()});
       return;
     }
-    if(prevVal === '' && val === '-'){
+   if( (prevVal === '' || prevVal === '(') && val === '-'){
       this.setState({operation: this.state.operation.concat(val)});
       this.setState({output: this.state.output.concat(val)});
+    }
+    if( prevVal === ')' && val === '^2'){
+      this.setState({operation: this.state.operation.concat(val)});
+      this.setState({output: this.state.output.concat(click)});
     }
     if((prevVal === '' || prevVal === 't' || /\W/.test(prevVal)) && (/\W/g.test(val) && val !== '(')){
       return;
