@@ -86,7 +86,7 @@ class App extends Component {
       this.setState({operation: this.state.operation.concat(val)});
       this.setState({output: this.state.output.concat(click)});
     }
-    if((prevVal === '' || prevVal === 't' || /\W/.test(prevVal)) && (/\W/g.test(val) && val !== '(')){
+    if((prevVal === '' || prevVal === 't' || /\W/.test(prevVal)) && (/\W/g.test(val) && val !== '(' && val !== '.')){
       return;
     }
     if(prevVal === 't' && val !== '('){
